@@ -37,4 +37,12 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public boolean matches(Product item, String text) {
+        boolean result = false;
+        if(item.getName().equalsIgnoreCase(text)) {
+            result = true;
+        }
+        return result;
+    }
 }

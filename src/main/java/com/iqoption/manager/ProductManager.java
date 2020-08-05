@@ -63,7 +63,7 @@ public class ProductManager {
         Product[] items = repository.getAll();
         Product[] result = new Product[0];
         for (Product item : items) {
-           if (matches(item, text)) {
+           if (item.matches(item, text)) {
                Product[] tmp = new Product[result.length + 1];
                System.arraycopy(result, 0, tmp, 0, result.length);
                tmp[tmp.length - 1] = item;
@@ -73,20 +73,5 @@ public class ProductManager {
         return result;
     }
 
-    private boolean matches(Product item, String text) {
-        boolean result = false;
-        if(item.getName().equalsIgnoreCase(text)) {
-            return true;
-        }
-        if(item instanceof Book) {
-            Book book = (Book)item;
-            result = book.getAuthor().equalsIgnoreCase(text);
-        }
-        if(item instanceof Smartphone) {
-            Smartphone smartphone = (Smartphone) item;
-            result = smartphone.getManufacturer().equalsIgnoreCase(text);
-        }
-        return result;
 
-    }
 }
