@@ -11,9 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
     ProductManager manager = new ProductManager(new ProductRepository());
-    Book book = new Book(1, "book1", 12, "author1");
-    Smartphone smartphone = new Smartphone(2, "phone1", 134, "apple");
-    Book book1 = new Book(3, "book2", 12, "author2");
+    Book book = new Book(1, "The Witcher", 12, "Sapkowski");
+    Smartphone smartphone = new Smartphone(2, "iphone8", 134, "apple");
+    Book book1 = new Book(3, "Onegin", 12, "Pushkin");
+    Smartphone smartphone1 = new Smartphone(4, "galaxy", 134, "android");
 
     @BeforeEach
     void setUp() {
@@ -78,9 +79,21 @@ class ProductManagerTest {
     }
 
     @Test
-    void searchBy() {
-        Product[] expected = {book};
+    void searchByNothing() {
+        Product[] expected = {};
         assertArrayEquals(expected, manager.searchBy("book1"));
+    }
+
+    @Test
+    void searchByBook() {
+        Product[] expected = {book};
+        assertArrayEquals(expected, manager.searchBy("the witcher"));
+    }
+
+    @Test
+    void searchBySmartphone() {
+        Product[] expected = {smartphone};
+        assertArrayEquals(expected, manager.searchBy("iphone8"));
     }
 
 }
