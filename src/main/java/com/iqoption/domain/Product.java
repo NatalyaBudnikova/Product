@@ -38,11 +38,7 @@ public class Product {
         this.price = price;
     }
 
-    public boolean matches(Product item, String text) {
-        boolean result = false;
-        if(item.getName().equalsIgnoreCase(text)) {
-            result = true;
-        }
-        return result;
+    public boolean matches(String text) {
+        return name.equalsIgnoreCase(text);
     }
 }

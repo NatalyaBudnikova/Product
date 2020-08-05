@@ -20,13 +20,11 @@ public class Smartphone extends Product {
     }
 
     @Override
-    public boolean matches(Product item, String text) {
-        boolean result = super.matches(item, text);
-        if (!result) {
-            Smartphone smartphone = (Smartphone) item;
-            result = smartphone.getManufacturer().equalsIgnoreCase(text);
+    public boolean matches(String text) {
+        if (super.matches(text)) {
+            return true;
         }
-        return result;
+        return manufacturer.equalsIgnoreCase(text);
     }
 }
 

@@ -3,6 +3,7 @@ package com.iqoption.manager;
 import com.iqoption.domain.Book;
 import com.iqoption.domain.Product;
 import com.iqoption.domain.Smartphone;
+import com.iqoption.exception.NotFoundException;
 import com.iqoption.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,9 +74,7 @@ class ProductManagerTest {
 
     @Test
     void removeByIdNotFound() {
-        Product[] expected = {book1, smartphone};
-        manager.removeById(16);
-        assertArrayEquals(expected, manager.findAll());
+        assertThrows(NotFoundException.class, () -> manager.removeById(16));
     }
 
     @Test

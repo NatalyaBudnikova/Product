@@ -63,7 +63,7 @@ public class ProductManager {
         Product[] items = repository.getAll();
         Product[] result = new Product[0];
         for (Product item : items) {
-           if (item.matches(item, text)) {
+           if (item.matches(text)) {
                Product[] tmp = new Product[result.length + 1];
                System.arraycopy(result, 0, tmp, 0, result.length);
                tmp[tmp.length - 1] = item;

@@ -1,6 +1,7 @@
 package com.iqoption.repository;
 
 import com.iqoption.domain.Product;
+import com.iqoption.exception.NotFoundException;
 
 public class ProductRepository {
     private Product[] items = new Product[0];
@@ -28,12 +29,12 @@ public class ProductRepository {
     }
 
     public void removeById(int id) {
-        if (items.length <= 0) {
-            return;
-        }
+//        if (items.length <= 0) {
+//            return;
+//        }
 
-        if (findByID(id) == null) {
-            return;
+        if (items.length <= 0 || findByID(id) == null) {
+            throw new NotFoundException("product id=" + id + " not found");
         }
 
         Product[] tmp = new Product[items.length - 1];

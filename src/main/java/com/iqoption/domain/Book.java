@@ -20,12 +20,10 @@ public class Book extends Product {
     }
 
     @Override
-    public boolean matches(Product item, String text) {
-        boolean result = super.matches(item, text);
-        if (!result) {
-        Book book = (Book) item;
-        result = book.getAuthor().equalsIgnoreCase(text);
+    public boolean matches(String text) {
+        if (super.matches(text)) {
+            return true;
         }
-        return result;
+        return author.equalsIgnoreCase(text);
     }
 }
