@@ -3,6 +3,7 @@ package com.iqoption.manager;
 import com.iqoption.domain.Book;
 import com.iqoption.domain.Product;
 import com.iqoption.domain.Smartphone;
+import com.iqoption.exception.NotFoundException;
 import com.iqoption.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ class ProductManagerTest {
     Book book = new Book(1, "The Witcher", 12, "Sapkowski");
     Smartphone smartphone = new Smartphone(2, "iphone8", 134, "apple");
     Book book1 = new Book(3, "Onegin", 12, "Pushkin");
-    Smartphone smartphone1 = new Smartphone(4, "galaxy", 134, "android");
+    Smartphone smartphone1 = new Smartphone(4, "iphone5", 134, "apple");
 
     @BeforeEach
     void setUp() {
@@ -73,9 +74,7 @@ class ProductManagerTest {
 
     @Test
     void removeByIdNotFound() {
-        Product[] expected = {book1, smartphone};
-        manager.removeById(16);
-        assertArrayEquals(expected, manager.findAll());
+        assertThrows(NotFoundException.class, () -> manager.removeById(16));
     }
 
     @Test
@@ -85,15 +84,28 @@ class ProductManagerTest {
     }
 
     @Test
-    void searchByBook() {
+    void searchByAuthorBook() {
         Product[] expected = {book};
-        assertArrayEquals(expected, manager.searchBy("the witcher"));
+        assertArrayEquals(expected, manager.searchBy("Sapkowski"));
     }
 
     @Test
-    void searchBySmartphone() {
+    void searchByNameBook() {
+        Product[] expected = {book};
+        assertArrayEquals(expected, manager.searchBy("The Witcher"));
+    }
+
+    @Test
+    void searchByNameSmartphone() {
         Product[] expected = {smartphone};
         assertArrayEquals(expected, manager.searchBy("iphone8"));
+    }
+
+    @Test
+    void searchByManufacturerSmartphone() {
+        manager.add(smartphone1);
+        Product[] expected = {smartphone, smartphone1};
+        assertArrayEquals(expected, manager.searchBy("apple"));
     }
 
 }

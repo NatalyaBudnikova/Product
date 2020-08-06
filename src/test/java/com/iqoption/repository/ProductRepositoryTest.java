@@ -3,6 +3,7 @@ package com.iqoption.repository;
 import com.iqoption.domain.Book;
 import com.iqoption.domain.Product;
 import com.iqoption.domain.Smartphone;
+import com.iqoption.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +31,7 @@ class ProductRepositoryTest {
     @Test
     void removeByIdWithoutItems() {
         ProductRepository repository = new ProductRepository();
-        repository.removeById(2);
-
-        Product[] expected = {};
-        assertArrayEquals(expected, repository.getAll());
+        assertThrows(NotFoundException.class, () -> repository.removeById(2));
     }
 
     @Test

@@ -19,4 +19,11 @@ public class Book extends Product {
         this.author = author;
     }
 
+    @Override
+    public boolean matches(String text) {
+        if (super.matches(text)) {
+            return true;
+        }
+        return author.equalsIgnoreCase(text);
+    }
 }
